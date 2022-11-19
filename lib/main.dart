@@ -53,12 +53,43 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             InkWell(
-              onTap: () {} ,
-              child: Image.asset('resources/picsButton.png')
+                onTap: () {} ,
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Ink.image(
+                        image: AssetImage(
+                          'resources/picsButton.png',
+                        ),
+                        width: 150,
+                        height: 150,
+                      ),
+                      Text(
+                          'Figuras',
+                          style: TextStyle(fontSize: 30,fontStyle: FontStyle.italic)
+                      )
+                    ]
+                )
             ),
+            SizedBox(height: 50),
             InkWell(
                 onTap: () {} ,
-                child: Image.asset('resources/schedule.png')
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Ink.image(
+                        image: AssetImage(
+                          'resources/schedule.png',
+                        ),
+                        width: 150,
+                        height: 150,
+                      ),
+                      Text(
+                          'Agenda',
+                          style: TextStyle(fontSize: 30,fontStyle: FontStyle.italic)
+                      )
+                    ]
+                )
             )
           ],
         ),
