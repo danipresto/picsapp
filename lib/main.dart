@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pecs_app/pics_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,8 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
+        accentColor: Colors.amber
       ),
       home: const MyHomePage(title: 'AssisPics'),
     );
@@ -24,7 +25,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
-
   final String title;
 
   @override
@@ -32,12 +32,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter=_counter+5;
-    });
+  void selectMode(BuildContext ctx){
+    Navigator.of(ctx).push(
+        MaterialPageRoute(
+            builder: (_){
+              return PicsScreen();
+            }
+        )
+    );
   }
 
   @override
@@ -53,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             InkWell(
-                onTap: () {} ,
+                onTap: () => selectMode(context) ,
                 child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -94,11 +97,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
