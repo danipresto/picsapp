@@ -11,6 +11,7 @@ class DraggablePic extends StatelessWidget{
   Widget build(BuildContext context){
 
     return Draggable(
+        data: title,
         child: Image(
             image: AssetImage(path)
         ),
