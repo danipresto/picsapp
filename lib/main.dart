@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pecs_app/pics_screen.dart';
+import 'package:pecs_app/schedule_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,11 +34,21 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  void selectMode(BuildContext ctx){
+  void selectFigurasPage(BuildContext ctx){
     Navigator.of(ctx).push(
         MaterialPageRoute(
             builder: (_){
               return PicsScreen();
+            }
+        )
+    );
+  }
+
+  void selectAgendaPage(BuildContext ctx){
+    Navigator.of(ctx).push(
+        MaterialPageRoute(
+            builder: (_){
+              return ScheduleScreen();
             }
         )
     );
@@ -56,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             InkWell(
-                onTap: () => selectMode(context) ,
+                onTap: () => selectFigurasPage(context) ,
                 child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -76,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SizedBox(height: 50),
             InkWell(
-                onTap: () {} ,
+                onTap: () => selectAgendaPage(context) ,
                 child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
