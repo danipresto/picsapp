@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pecs_app/pics_screen.dart';
-import 'package:pecs_app/schedule_screen.dart';
+import 'package:pecs_app/PECS/pics_screen.dart';
+import 'package:pecs_app/SCHEDULE/schedule_screen.dart';
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
+  await AndroidAlarmManager.initialize();
 }
 
 class MyApp extends StatelessWidget {

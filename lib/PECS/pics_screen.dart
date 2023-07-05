@@ -24,6 +24,7 @@ class _PicsScreenState extends State<PicsScreen> {
       await flutterTts.setPitch(1.0);
       await flutterTts.speak(text);
     }
+
     return Scaffold(
         appBar: AppBar(
           title: const Text('Figuras'),

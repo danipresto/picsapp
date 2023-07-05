@@ -1,0 +1,141 @@
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
+import 'package:flutter/material.dart';
+import 'package:pecs_app/SCHEDULE/schedule_screen.dart';
+import 'choose_scheduled_activity.dart';
+import 'choose_scheduled_time.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../models/draggable_pic_model.dart';
+
+class ScheduleActivityScreen extends StatefulWidget{
+
+  final DraggablePicModel? picModel;
+
+  ScheduleActivityScreen({this.picModel});
+
+  @override
+  State<ScheduleActivityScreen> createState() => _ScheduleActivityScreenState();
+
+}
+
+void handleEscolherAtividadeTap(BuildContext context) {
+  Navigator.of(context).push(
+      MaterialPageRoute(
+          builder: (_){
+            return ChooseScheduleActivityScreen();
+          }
+      )
+  );
+}
+
+
+class _ScheduleActivityScreenState extends State<ScheduleActivityScreen> {
+
+  TimeOfDay selectedTime = TimeOfDay.now();
+  DateTime alarmTime = DateTime.now();
+  static List<ScheduleModel> scheduleList = [];
+
+  Future<void> handleSelecionarHorarioTap(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ChooseScheduledTimeScreen()),
+    );
+    if (result != null) {
+      setState(() {
+        selectedTime = result;
+      });
+    }
+  }
+
+  void setAlarmAndNavigate() async{
+
+    final prefs = await SharedPreferences.getInstance();
+    int lastId = prefs.getInt('last_alarm_id') ?? 0;
+    int alarmId = lastId + 1;
+    prefs.setInt('last_alarm_id', alarmId);
+
+    scheduleList.add(ScheduleModel(picModel: widget.picModel!, selectedTime: selectedTime));
+
+    DateTime date = DateTime.now();
+    DateTime alarmTime = DateTime(date.year, date.month, date.day, selectedTime.hour, selectedTime.minute);
+
+    AndroidAlarmManager.oneShotAt(alarmTime, alarmId, callback)
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => ScheduleScreen(scheduleList: scheduleList)),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('ListTile Screen'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ListView(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              children: [
+                GestureDetector(
+                  onTap: () => handleEscolherAtividadeTap(context),
+                  child: ListTile(
+                    title: Text(
+                      'Escolher Atividade',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => handleSelecionarHorarioTap(context),
+                  child: ListTile(
+                    title: Text(
+                      'Selecionar Horário',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 50),
+            if (widget.picModel != null)
+              Center(
+                child: Column(
+                  children: [
+                    Image.asset('${widget.picModel?.path}'),
+                    SizedBox(height: 20), // optional, for extra space
+                    Text('Horário: ${selectedTime!.format(context)}',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,),), // display selected time below picModel
+                  ],
+                ),
+              ),
+            ElevatedButton(
+              onPressed: () {
+                // this function will be defined next
+                setAlarmAndNavigate();
+              },
+              child: Text(
+                'Adicionar!',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+}

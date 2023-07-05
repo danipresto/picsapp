@@ -1,11 +1,11 @@
+import 'package:flutter/material.dart';
 
-
-class DraggablePicModel{
+class ClickablePicModel{
   final String id;
   final String title;
   final String path;
 
-const DraggablePicModel({
+const ClickablePicModel({
     required this.id,
     required this.title,
     required this.path
