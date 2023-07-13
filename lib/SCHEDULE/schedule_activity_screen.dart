@@ -1,6 +1,7 @@
-import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:pecs_app/SCHEDULE/schedule_screen.dart';
+import 'package:provider/provider.dart';
+import '../support/notifications_services.dart';
 import 'choose_scheduled_activity.dart';
 import 'choose_scheduled_time.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,9 +31,8 @@ void handleEscolherAtividadeTap(BuildContext context) {
 
 class _ScheduleActivityScreenState extends State<ScheduleActivityScreen> {
 
-  TimeOfDay selectedTime = TimeOfDay.now();
-  DateTime alarmTime = DateTime.now();
   static List<ScheduleModel> scheduleList = [];
+  TimeOfDay selectedTime = TimeOfDay.now();
 
   Future<void> handleSelecionarHorarioTap(BuildContext context) async {
     final result = await Navigator.push(
@@ -50,20 +50,28 @@ class _ScheduleActivityScreenState extends State<ScheduleActivityScreen> {
 
     final prefs = await SharedPreferences.getInstance();
     int lastId = prefs.getInt('last_alarm_id') ?? 0;
-    int alarmId = lastId + 1;
-    prefs.setInt('last_alarm_id', alarmId);
+    int notificationId = lastId + 1;
+    prefs.setInt('last_alarm_id', notificationId);
 
-    scheduleList.add(ScheduleModel(picModel: widget.picModel!, selectedTime: selectedTime));
+    scheduleList.add(ScheduleModel(picModel: widget.picModel!, selectedTime: selectedTime!));
 
     DateTime date = DateTime.now();
     DateTime alarmTime = DateTime(date.year, date.month, date.day, selectedTime.hour, selectedTime.minute);
 
-    AndroidAlarmManager.oneShotAt(alarmTime, alarmId, callback)
+    Provider.of<NotificationService>(context, listen: false).showNotification(
+        CustomNotification(
+          id: notificationId,
+          title: 'Teste',
+          path: 'Acesse o app!',
+        ),
+        alarmTime
+    );
 
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => ScheduleScreen(scheduleList: scheduleList)),
     );
+
   }
 
   @override
