@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pecs_app/pages/pecs/pics_screen.dart';
+import 'package:pecs_app/pages/schedule/schedule_screen.dart';
 
-import 'PECS/pics_screen.dart';
-import 'SCHEDULE/schedule_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

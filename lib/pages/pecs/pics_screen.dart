@@ -1,9 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:pecs_app/draggable_pic.dart';
 import 'package:pecs_app/draggable_pics_data.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-
-
+import 'package:pecs_app/models/draggable_pic_model.dart';
 
 
 class PicsScreen extends StatefulWidget{
@@ -12,18 +13,26 @@ class PicsScreen extends StatefulWidget{
   State<PicsScreen> createState() => _PicsScreenState();
 }
 
-
 class _PicsScreenState extends State<PicsScreen> {
   final FlutterTts flutterTts = FlutterTts();
+  List<DraggablePicModel> acceptedData = [];
 
   @override
   Widget build(BuildContext context){
 
-    void speak(String text) async {
-      await flutterTts.setLanguage("pt-BR");
-      await flutterTts.setPitch(1.0);
-      await flutterTts.speak(text);
+    Future<void> speakAndWait(FlutterTts tts, String text) {
+      final Completer<void> completer = Completer();
+      tts.setProgressHandler((String text, int start, int end, String word) {
+        if (end >= text.length) {
+          completer.complete();
+        }
+      });
+      flutterTts.setLanguage("pt-BR");
+      flutterTts.setPitch(1.0);
+      flutterTts.speak(text);
+      return completer.future;
     }
+
 
     return Scaffold(
         appBar: AppBar(
@@ -32,11 +41,7 @@ class _PicsScreenState extends State<PicsScreen> {
         body: Column(
             children: [
               Flexible(child: GridView(
-                children: PICTOGRAMS.map((picsdata) => DraggablePic(
-                    picsdata.title,
-                    picsdata.path
-                )
-                ).toList(),
+                children: pictograms.map((picsdata) => DraggablePic(picsdata)).toList(),
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 100,
                     childAspectRatio: 1,
@@ -44,27 +49,41 @@ class _PicsScreenState extends State<PicsScreen> {
                     mainAxisSpacing: 10
                 ),
               )
+
               ),
-              DragTarget<String>(
-                builder: (BuildContext context,List<dynamic> accepted,List<dynamic> rejected){
+              DragTarget<DraggablePicModel>(
+                builder: (BuildContext context, List<dynamic> accepted, List<dynamic> rejected){
                   return Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       color: Colors.amber[600],
                       width: MediaQuery.of(context).size.width,
                       height: 90.0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: acceptedData.map((data) => Image.asset(data.path)).toList(),
+                      ),
                     ),
                   );
                 },
                 onWillAccept: (data){
-                  return data != '';
+                  return data != null && acceptedData.length < 3;
                 },
                 onAccept: (data){
-                  speak(data);
+                  setState(() {
+                    acceptedData.add(data);
+                  });
                 },
               ),
               FloatingActionButton(
-                onPressed: () {},
+                onPressed: () async {
+                  for (DraggablePicModel data in acceptedData) {
+                    await speakAndWait(flutterTts, data.title);
+                  }
+                  setState(() {
+                    acceptedData.clear();
+                  });
+                },
                 backgroundColor: Colors.green,
                 child: const Icon(Icons.play_arrow),
               ),

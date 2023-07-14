@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:pecs_app/SCHEDULE/schedule_screen.dart';
+import 'package:pecs_app/models/draggable_pic_model.dart';
+import 'package:pecs_app/models/schedule_list_model.dart';
+import 'package:pecs_app/support/notifications_services.dart';
+import 'package:pecs_app/support/schedule_provider.dart';
 import 'package:provider/provider.dart';
-import '../support/notifications_services.dart';
 import 'choose_scheduled_activity.dart';
 import 'choose_scheduled_time.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/draggable_pic_model.dart';
+
 
 class ScheduleActivityScreen extends StatefulWidget{
 
-  final DraggablePicModel? picModel;
+  DraggablePicModel? picModel;
 
   ScheduleActivityScreen({this.picModel});
 
@@ -18,21 +20,26 @@ class ScheduleActivityScreen extends StatefulWidget{
 
 }
 
-void handleEscolherAtividadeTap(BuildContext context) {
-  Navigator.of(context).push(
-      MaterialPageRoute(
-          builder: (_){
-            return ChooseScheduleActivityScreen();
-          }
-      )
-  );
-}
-
 
 class _ScheduleActivityScreenState extends State<ScheduleActivityScreen> {
 
   static List<ScheduleModel> scheduleList = [];
   TimeOfDay selectedTime = TimeOfDay.now();
+
+  void handleEscolherAtividadeTap(BuildContext context) async {
+    final result = await Navigator.of(context).push(
+        MaterialPageRoute(
+            builder: (_){
+              return ChooseScheduleActivityScreen();
+            }
+        )
+    );
+    if (result != null) {
+      setState(() {
+        widget.picModel = result; //set the result to picModel
+      });
+    }
+  }
 
   Future<void> handleSelecionarHorarioTap(BuildContext context) async {
     final result = await Navigator.push(
@@ -67,10 +74,11 @@ class _ScheduleActivityScreenState extends State<ScheduleActivityScreen> {
         alarmTime
     );
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => ScheduleScreen(scheduleList: scheduleList)),
+    Provider.of<ScheduleListProvider>(context, listen: false).addSchedule(
+      ScheduleModel(picModel: widget.picModel!, selectedTime: selectedTime!),
     );
+
+    Navigator.pop(context);
 
   }
 
