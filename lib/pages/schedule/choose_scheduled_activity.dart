@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pecs_app/draggable_pics_data.dart';
+import 'package:pecs_app/data/atividades/draggable_pics_data.dart';
 
 
 class ChooseScheduleActivityScreen extends StatefulWidget{

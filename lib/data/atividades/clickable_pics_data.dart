@@ -1,6 +1,6 @@
 
 
-import 'models/clickable_pic_model.dart';
+import '../../models/clickable_pic_model.dart';
 
 const PICTOGRAMS_CLICKABLE = const [
   ClickablePicModel(
