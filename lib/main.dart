@@ -4,7 +4,6 @@ import 'package:pecs_app/services/schedule_provider.dart';
 import 'package:provider/provider.dart';
 import 'myapp.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -18,11 +17,21 @@ void main() async {
           create: (context) => ScheduleListProvider(),
         )
       ],
-      child: MaterialApp(
-          home: const HomePage()
-      ),
+      child: MyApp(),
     ),
   );
-
 }
 
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'PECS App',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        scaffoldBackgroundColor: Color(0xFFE0F2F1), // Soft green color
+      ),
+      home: const HomePage(),
+    );
+  }
+}

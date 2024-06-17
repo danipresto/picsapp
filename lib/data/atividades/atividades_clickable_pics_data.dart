@@ -2,7 +2,7 @@
 
 import '../../models/clickable_pic_model.dart';
 
-const PICTOGRAMS_CLICKABLE = const [
+const atividadesClickable = const [
   ClickablePicModel(
       id:'0',
       title:'Abrir',

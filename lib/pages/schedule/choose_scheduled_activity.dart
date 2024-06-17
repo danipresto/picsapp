@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pecs_app/data/atividades/draggable_pics_data.dart';
+import 'package:pecs_app/data/atividades/atividades_draggable_pics_data.dart';
 
 
 class ChooseScheduleActivityScreen extends StatefulWidget{
@@ -18,16 +18,16 @@ class _ChooseScheduleActivityScreenState extends State<ChooseScheduleActivityScr
           title: const Text('Figuras'),
         ),
         body: GridView.builder(
-          itemCount: pictograms.length,
+          itemCount: atividadesDraggable.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3, // adjust according to your needs
           ),
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {
-                Navigator.pop(context, pictograms[index]); // pop and pass the picModel back
+                Navigator.pop(context, atividadesDraggable[index]); // pop and pass the picModel back
               },
-              child: Image.asset(pictograms[index].path),
+              child: Image.asset(atividadesDraggable[index].path),
             );
           },
         )

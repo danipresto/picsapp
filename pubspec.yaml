@@ -75,7 +75,8 @@ flutter:
   assets:
     - resources/
     - resources/atividades/
-    - resources/comunicação/
+    - resources/comunicacao/
+    - resources/corpo/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

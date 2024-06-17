@@ -1,6 +1,6 @@
 import 'package:pecs_app/models/draggable_pic_model.dart';
 
-const pictograms = const [
+const atividadesDraggable = const [
   DraggablePicModel(
       id:'0',
       title:'Abrir',
