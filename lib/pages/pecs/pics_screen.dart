@@ -56,36 +56,38 @@ class _PicsScreenState extends State<PicsScreen> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'Menu',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
+            Divider(),
             ListTile(
               leading: const Icon(Icons.home),
-              title: const Text('Atividades'),
+              title: Text(
+                'Atividades',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
               onTap: () => _selectPictograms(atividadesDraggable),
             ),
+            Divider(),
             ListTile(
               leading: const Icon(Icons.accessibility),
-              title: const Text('Corpo'),
+              title: Text(
+                'Corpo',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
               onTap: () => _selectPictograms(corpoDraggables),
             ),
+            Divider(),
             ListTile(
               leading: const Icon(Icons.record_voice_over),
-              title: const Text('Comunicação'),
+              title: Text(
+                'Comunicação',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
               onTap: () => _selectPictograms(comunicacaoDraggable),
             ),
+            Divider(),
           ],
         ),
       ),
+
       body: LayoutBuilder(
         builder: (context, constraints) {
           final columnWidth = 30.0; // Item width + spacing
@@ -143,28 +145,45 @@ class _PicsScreenState extends State<PicsScreen> {
   Widget _buildDragTarget() {
     return DragTarget<DraggablePicModel>(
       builder: (BuildContext context, List<dynamic> accepted, List<dynamic> rejected) {
-        return Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.amber[600],
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: acceptedData.map((data) {
-              return Draggable<DraggablePicModel>(
-                data: data,
-                feedback: Image.asset(data.path, width: 100, height: 100),
-                childWhenDragging: Container(),
-                child: Image.asset(data.path, width: 100, height: 100),
-                onDraggableCanceled: (velocity, offset) {
-                  setState(() {
-                    acceptedData.remove(data);
-                  });
-                },
-              );
-            }).toList(),
-          ),
+        return Stack(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.amber[600],
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            Positioned.fill(
+              child: Align(
+                alignment: Alignment.center,
+                child: Container(
+                  width: double.infinity,
+                  height: 10, // Adjust the height of the stripe as needed
+                  color: Colors.brown,
+                ),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: acceptedData.map((data) {
+                  return Draggable<DraggablePicModel>(
+                    data: data,
+                    feedback: Image.asset(data.path, width: 100, height: 100),
+                    childWhenDragging: Container(),
+                    child: Image.asset(data.path, width: 100, height: 100),
+                    onDraggableCanceled: (velocity, offset) {
+                      setState(() {
+                        acceptedData.remove(data);
+                      });
+                    },
+                  );
+                }).toList(),
+              ),
+            ),
+          ],
         );
       },
       onWillAccept: (data) {
@@ -177,6 +196,7 @@ class _PicsScreenState extends State<PicsScreen> {
       },
     );
   }
+
 
   Future<void> _playAcceptedData() async {
     for (DraggablePicModel data in acceptedData) {
