@@ -13,39 +13,57 @@ class _ChooseScheduledTimeScreenState extends State<ChooseScheduledTimeScreen> {
       context: context,
       initialTime: selectedTime,
     );
-    if (picked != null && picked != selectedTime)
+    if (picked != null && picked != selectedTime) {
       setState(() {
         selectedTime = picked;
       });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select Time'),
+        title: const Text('Escolher Horário'),
       ),
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text('Selected time: ${selectedTime.format(context)}'),
-            ElevatedButton(
-              onPressed: () => _selectTime(context),
-              child: Text('Select Time'),
-            ),
-            SizedBox(height: 20), // optional, for extra space
-            ElevatedButton(
-              onPressed: () => Navigator.pop(context, selectedTime),
-              child: Text(
-                'Escolher Horário',
-                style: TextStyle(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                'Horário Selecionado: ${selectedTime.format(context)}',
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
+                textAlign: TextAlign.center,
               ),
-            ),
-          ],
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () => _selectTime(context),
+                child: const Text(
+                  'Selecionar Horário',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () => Navigator.pop(context, selectedTime),
+                child: const Text(
+                  'Confirmar',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

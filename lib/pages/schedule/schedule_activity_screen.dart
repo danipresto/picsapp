@@ -86,7 +86,7 @@ class _ScheduleActivityScreenState extends State<ScheduleActivityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ListTile Screen'),
+        title: Text('Agenda'),
       ),
       body: SingleChildScrollView(
         child: Column(
