@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pecs_app/services/notifications_services.dart';
-import 'package:pecs_app/services/schedule_provider.dart';
+import 'package:pecs_app/services/schedule_list_provider.dart';
 import 'package:provider/provider.dart';
 import 'myapp.dart';
 
