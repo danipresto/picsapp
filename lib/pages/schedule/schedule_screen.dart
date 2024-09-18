@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pecs_app/models/schedule_model.dart';
 import 'package:pecs_app/services/schedule_list_provider.dart';
+import 'package:pecs_app/widgets/custom_app_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:pecs_app/services/admin_mode_provider.dart';
 import 'schedule_activity_screen.dart';
+import 'package:pecs_app/pages/schedule/schedule_item.dart';
 
 class ScheduleScreen extends StatelessWidget {
   void scheduledActivityPage(BuildContext ctx) {
@@ -17,71 +20,43 @@ class ScheduleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isAdminMode = Provider.of<AdminModeProvider>(context).isAdminMode;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Agenda'),
+      appBar: CustomAppBar(
+        title: 'Agenda',
       ),
       body: Consumer<ScheduleListProvider>(
         builder: (context, scheduleListProvider, child) {
-          return GridView.builder(
+          // Sort the scheduleList by selectedTime
+          List<ScheduleModel> sortedList = List.from(scheduleListProvider.scheduleList);
+          sortedList.sort((a, b) {
+            final aTime = TimeOfDay(hour: a.selectedTime.hour, minute: a.selectedTime.minute);
+            final bTime = TimeOfDay(hour: b.selectedTime.hour, minute: b.selectedTime.minute);
+            return aTime.hour.compareTo(bTime.hour) != 0
+                ? aTime.hour.compareTo(bTime.hour)
+                : aTime.minute.compareTo(bTime.minute);
+          });
+
+          return ListView.builder(
             padding: const EdgeInsets.all(10),
-            itemCount: scheduleListProvider.scheduleList.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-            ),
+            itemCount: sortedList.length,
             itemBuilder: (BuildContext context, int index) {
-              ScheduleModel schedule = scheduleListProvider.scheduleList[index];
+              ScheduleModel schedule = sortedList[index];
               return ScheduleItem(schedule: schedule);
             },
           );
         },
       ),
-      floatingActionButton: Container(
-        width: 100,
-        height: 100,
-        child: FloatingActionButton(
-          onPressed: () => scheduledActivityPage(context),
-          child: const Icon(Icons.add, size: 40),
-        ),
-      ),
+      floatingActionButton: isAdminMode
+          ? FloatingActionButton(
+        onPressed: () => scheduledActivityPage(context),
+        child: const Icon(Icons.add, size: 30),
+      )
+          : null,
     );
   }
+
 }
 
-class ScheduleItem extends StatelessWidget {
-  final ScheduleModel schedule;
 
-  const ScheduleItem({required this.schedule});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(schedule.picModel.path),
-          const SizedBox(height: 10),
-          Text(
-            schedule.selectedTime.format(context),
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-    );
-  }
-}

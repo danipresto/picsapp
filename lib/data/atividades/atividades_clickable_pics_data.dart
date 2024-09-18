@@ -5,87 +5,49 @@ import '../../models/clickable_pic_model.dart';
 const atividadesClickable = const [
   ClickablePicModel(
       id:'0',
-      title:'Abrir',
-      path:'resources/atividades/abrir.png'
+      title:'Arrumar Cama',
+      path:'resources/atividades/arrumar_cama.jpg'
   ),
   ClickablePicModel(
       id:'1',
-      title:'Abrir Torneira',
-      path:'resources/atividades/abrir_torneira.png'
+      title:'Arrumar Quarto',
+      path:'resources/atividades/arrumar_quarto.jpg'
   ),
   ClickablePicModel(
       id:'2',
-      title:'Assoar',
-      path:'resources/atividades/assoar.png'
+      title:'Bicicleta',
+      path:'resources/atividades/bicicleta.jpg'
   ),
   ClickablePicModel(
       id:'3',
-      title:'Bochechar',
-      path:'resources/atividades/bochechar.png'
+      title:'Brincar',
+      path:'resources/atividades/brincar.jpg'
   ),
   ClickablePicModel(
       id:'4',
-      title:'Cortar Cabelo',
-      path:'resources/atividades/cortar_cabelo.png'
+      title:'Computador',
+      path:'resources/atividades/caoputador.jpg'
   ),
   ClickablePicModel(
       id:'5',
-      title:'Cortar Unhas',
-      path:'resources/atividades/cortar_unhas.png'
+      title:'Dormir',
+      path:'resources/atividades/dormir.jpg'
   ),
   ClickablePicModel(
       id:'6',
-      title:'Dar Descarga',
-      path:'resources/atividades/dar_descarga.png'
+      title:'Escola',
+      path:'resources/atividades/escola.jpg'
   ),
   ClickablePicModel(
       id:'7',
-      title:'Escovar Dentes',
-      path:'resources/atividades/escovar_dentes.png'
+      title:'Natação',
+      path:'resources/atividades/natação.jpg'
   ),
   ClickablePicModel(
       id:'8',
-      title:'Fechar Torneira',
-      path:'resources/atividades/fechar_torneira.png'
-  ),
-  ClickablePicModel(
-      id:'9',
-      title:'Lavar Cabelo',
-      path:'resources/atividades/lavar_cabelo.png'
-  ),
-  ClickablePicModel(
-      id:'10',
-      title:'Lavar Mãos',
-      path:'resources/atividades/lavar_maos.png'
-  ),
-  ClickablePicModel(
-      id:'11',
-      title:'Lavar Rosto',
-      path:'resources/atividades/lavar_rosto.png'
-  ),
-  ClickablePicModel(
-      id:'12',
-      title:'Limpar Mãos',
-      path:'resources/atividades/limpar_maos.png'
-  ),
-  ClickablePicModel(
-      id:'13',
-      title:'Limpar Rosto',
-      path:'resources/atividades/limpar_rosto.png'
-  ),
-  ClickablePicModel(
-      id:'14',
-      title:'Shampoo',
-      path:'resources/atividades/shampoo.png'
-  ),
-  ClickablePicModel(
-      id:'15',
-      title:'Vestir',
-      path:'resources/atividades/vestir.png'
-  ),
-
-
-
+      title:'Playstation',
+      path:'resources/atividades/playstation.jpg'
+  )
 ];
 
 

@@ -4,13 +4,19 @@ import 'draggable_pic_model.dart';
 class ScheduleModel {
   final DraggablePicModel picModel;
   final TimeOfDay selectedTime;
+  final int notificationId; // Added notificationId
 
-  ScheduleModel({required this.picModel, required this.selectedTime});
+  ScheduleModel({
+    required this.picModel,
+    required this.selectedTime,
+    required this.notificationId,
+  });
 
   Map<String, dynamic> toJson() {
     return {
       'picModel': picModel.toJson(),
       'selectedTime': _timeOfDayToString(selectedTime),
+      'notificationId': notificationId,
     };
   }
 
@@ -18,6 +24,7 @@ class ScheduleModel {
     return ScheduleModel(
       picModel: DraggablePicModel.fromJson(json['picModel']),
       selectedTime: _stringToTimeOfDay(json['selectedTime']),
+      notificationId: json['notificationId'],
     );
   }
 

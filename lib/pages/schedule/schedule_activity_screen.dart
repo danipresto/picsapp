@@ -3,6 +3,7 @@ import 'package:pecs_app/models/draggable_pic_model.dart';
 import 'package:pecs_app/models/schedule_model.dart';
 import 'package:pecs_app/services/notifications_services.dart';
 import 'package:pecs_app/services/schedule_list_provider.dart';
+import 'package:pecs_app/widgets/custom_app_bar.dart';
 import 'package:provider/provider.dart';
 import 'choose_scheduled_activity.dart';
 import 'choose_scheduled_time.dart';
@@ -53,40 +54,55 @@ class _ScheduleActivityScreenState extends State<ScheduleActivityScreen> {
     }
   }
 
-  void setAlarmAndNavigate() async{
-
+  void setAlarmAndNavigate() async {
     final prefs = await SharedPreferences.getInstance();
     int lastId = prefs.getInt('last_alarm_id') ?? 0;
     int notificationId = lastId + 1;
     prefs.setInt('last_alarm_id', notificationId);
 
-    scheduleList.add(ScheduleModel(picModel: widget.picModel!, selectedTime: selectedTime!));
-
-    DateTime date = DateTime.now();
-    DateTime alarmTime = DateTime(date.year, date.month, date.day, selectedTime.hour, selectedTime.minute);
-
-    Provider.of<NotificationService>(context, listen: false).showNotification(
-        CustomNotification(
-          id: notificationId,
-          title: 'Teste',
-          path: 'Acesse o app!',
-        ),
-        alarmTime
+    DateTime now = DateTime.now();
+    DateTime scheduledDateTime = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      selectedTime.hour,
+      selectedTime.minute,
     );
 
+    if (scheduledDateTime.isBefore(now)) {
+      // If the time has already passed today, schedule for tomorrow
+      scheduledDateTime = scheduledDateTime.add(Duration(days: 1));
+    }
+
+    // Schedule the notification
+    Provider.of<NotificationService>(context, listen: false).showNotification(
+      CustomNotification(
+        id: notificationId,
+        title: 'Lembrete',
+        path: 'Está na hora de ${widget.picModel?.title}',
+      ),
+      scheduledDateTime,
+    );
+
+    // Add the schedule to the list with notificationId
     Provider.of<ScheduleListProvider>(context, listen: false).addSchedule(
-      ScheduleModel(picModel: widget.picModel!, selectedTime: selectedTime!),
+      ScheduleModel(
+        picModel: widget.picModel!,
+        selectedTime: selectedTime,
+        notificationId: notificationId, // Store notificationId
+      ),
     );
 
     Navigator.pop(context);
-
   }
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Agenda'),
+      appBar: CustomAppBar(
+        title:'Agenda',
       ),
       body: SingleChildScrollView(
         child: Column(

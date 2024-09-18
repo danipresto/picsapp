@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pecs_app/data/atividades/atividades_draggable_pics_data.dart';
+import 'package:pecs_app/data/higiene/higiene_draggable_pics_data.dart';
+import 'package:pecs_app/data/atividades/atividades_draggable_pics_data.dart'; // Import atividades data
 import 'package:pecs_app/models/draggable_pic_model.dart';
+import 'package:pecs_app/widgets/custom_app_bar.dart';
+
 
 class ChooseScheduleActivityScreen extends StatefulWidget {
   @override
@@ -8,29 +11,41 @@ class ChooseScheduleActivityScreen extends StatefulWidget {
 }
 
 class _ChooseScheduleActivityScreenState extends State<ChooseScheduleActivityScreen> {
+  List<DraggablePicModel> combinedList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Combine the two lists
+    combinedList = [...higieneDraggable, ...atividadesDraggable];
+    // Sort the combined list alphabetically by title
+    combinedList.sort((a, b) => a.title.compareTo(b.title));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Escolher Atividade'),
+      appBar: CustomAppBar(
+        title: 'Escolher Atividade',
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: GridView.builder(
-          itemCount: atividadesDraggable.length,
+          itemCount: combinedList.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3, // Adjust according to your needs
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
           ),
           itemBuilder: (context, index) {
-            final activity = atividadesDraggable[index];
+            final activity = combinedList[index];
             return ActivityGridItem(activity: activity);
           },
         ),
       ),
     );
   }
+
 }
 
 class ActivityGridItem extends StatelessWidget {

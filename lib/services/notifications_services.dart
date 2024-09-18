@@ -6,24 +6,19 @@ import 'package:timezone/data/latest_all.dart' as tz;
 
 import '../routes.dart';
 
-
-class CustomNotification{
+class CustomNotification {
   final int id;
   final String? title;
   final String? path;
 
-  CustomNotification(
-      {
+  CustomNotification({
     required this.id,
     required this.title,
     required this.path,
-  }
-  );
-
+  });
 }
 
 class NotificationService {
-
   late FlutterLocalNotificationsPlugin localNotificationsPlugin;
   late AndroidNotificationDetails androidDetails;
 
@@ -33,7 +28,7 @@ class NotificationService {
     _setupNotifications();
   }
 
-  _setupAndroidDetails() {
+  void _setupAndroidDetails() {
     androidDetails = const AndroidNotificationDetails(
       'lembretes_notifications_details',
       'Lembretes',
@@ -44,7 +39,7 @@ class NotificationService {
     );
   }
 
-  _setupNotifications() async {
+  Future<void> _setupNotifications() async {
     await _setupTimezone();
     await _initializeNotifications();
   }
@@ -52,10 +47,10 @@ class NotificationService {
   Future<void> _setupTimezone() async {
     tz.initializeTimeZones();
     final String timeZoneName = await FlutterTimezone.getLocalTimezone();
-     tz.setLocalLocation(tz.getLocation(timeZoneName));
+    tz.setLocalLocation(tz.getLocation(timeZoneName));
   }
 
-  _initializeNotifications() async {
+  Future<void> _initializeNotifications() async {
     const android = AndroidInitializationSettings('@mipmap/ic_launcher');
     await localNotificationsPlugin.initialize(
       const InitializationSettings(
@@ -67,27 +62,33 @@ class NotificationService {
 
   void _onSelectNotification(NotificationResponse? payload) {
     if (payload != null && payload.toString().isNotEmpty) {
-      Navigator.of(Routes.navigatorKey!.currentContext!).pushReplacementNamed('/schedule');
+      Navigator.of(Routes.navigatorKey!.currentContext!)
+          .pushReplacementNamed('/schedule');
     }
   }
 
-  showNotification(CustomNotification notification, DateTime timeOfDay) {
-
+  void showNotification(CustomNotification notification, DateTime dateTime) {
     localNotificationsPlugin.zonedSchedule(
       notification.id,
       notification.title,
       notification.path,
-      tz.TZDateTime.from(timeOfDay, tz.local),
+      tz.TZDateTime.from(dateTime, tz.local),
       NotificationDetails(
         android: androidDetails,
       ),
       androidAllowWhileIdle: true,
-      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+      uiLocalNotificationDateInterpretation:
+      UILocalNotificationDateInterpretation.absoluteTime,
     );
   }
 
-  checkForNotifications() async {
-    final details = await localNotificationsPlugin.getNotificationAppLaunchDetails();
+  Future<void> cancelNotification(int notificationId) async {
+    await localNotificationsPlugin.cancel(notificationId);
+  }
+
+  Future<void> checkForNotifications() async {
+    final details =
+    await localNotificationsPlugin.getNotificationAppLaunchDetails();
     if (details != null && details.didNotificationLaunchApp) {
       _onSelectNotification(details.notificationResponse);
     }

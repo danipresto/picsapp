@@ -2,12 +2,15 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:pecs_app/widgets/custom_app_bar.dart';
 import 'package:pecs_app/widgets/draggable_pic.dart';
-import 'package:pecs_app/data/atividades/atividades_draggable_pics_data.dart';
+import 'package:pecs_app/data/higiene/higiene_draggable_pics_data.dart';
 import 'package:pecs_app/data/corpo/corpo_draggable_pics_data.dart';
 import 'package:pecs_app/data/comunicacao/comunicacao_draggable_pics_data.dart';
 import 'package:pecs_app/services/tts_service.dart';
 import 'package:pecs_app/models/draggable_pic_model.dart';
+
+import '../../data/atividades/atividades_draggable_pics_data.dart';
 
 class PicsScreen extends StatefulWidget {
   @override
@@ -19,7 +22,7 @@ class _PicsScreenState extends State<PicsScreen> {
   List<DraggablePicModel> acceptedData = [];
   final Queue<String> _textQueue = Queue<String>();
   bool _isSpeaking = false;
-  List<DraggablePicModel> currentPictograms = atividadesDraggable;
+  List<DraggablePicModel> currentPictograms = higieneDraggable;
 
   void _selectPictograms(List<DraggablePicModel> pictograms) {
     setState(() {
@@ -31,8 +34,8 @@ class _PicsScreenState extends State<PicsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Figuras'),
+      appBar: CustomAppBar(
+        title:'PECS',
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -64,6 +67,15 @@ class _PicsScreenState extends State<PicsScreen> {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               onTap: () => _selectPictograms(atividadesDraggable),
+            ),
+            Divider(),
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: Text(
+                'Higiene',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              onTap: () => _selectPictograms(higieneDraggable),
             ),
             Divider(),
             ListTile(

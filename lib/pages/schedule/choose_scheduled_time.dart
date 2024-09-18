@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pecs_app/widgets/custom_app_bar.dart';
 
 class ChooseScheduledTimeScreen extends StatefulWidget {
   @override
@@ -23,8 +24,8 @@ class _ChooseScheduledTimeScreenState extends State<ChooseScheduledTimeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Escolher Horário'),
+      appBar: CustomAppBar(
+        title: 'Escolher Horário',
       ),
       body: Center(
         child: Padding(
