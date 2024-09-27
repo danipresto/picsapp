@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pecs_app/models/draggable_pic_model.dart';
+import 'package:PecsSpeak/models/draggable_pic_model.dart';
 
 class DraggablePic extends StatelessWidget {
   final DraggablePicModel picModel;

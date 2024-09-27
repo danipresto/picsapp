@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pecs_app/widgets/custom_app_bar.dart';
+import 'package:PecsSpeak/widgets/custom_app_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
-import 'package:pecs_app/services/admin_mode_provider.dart';
+import 'package:PecsSpeak/services/admin_mode_provider.dart';
 
 class SettingsPage extends StatefulWidget {
   @override

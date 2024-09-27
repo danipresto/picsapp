@@ -2,13 +2,13 @@ import 'dart:async';
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:pecs_app/widgets/custom_app_bar.dart';
-import 'package:pecs_app/widgets/draggable_pic.dart';
-import 'package:pecs_app/data/higiene/higiene_draggable_pics_data.dart';
-import 'package:pecs_app/data/corpo/corpo_draggable_pics_data.dart';
-import 'package:pecs_app/data/comunicacao/comunicacao_draggable_pics_data.dart';
-import 'package:pecs_app/services/tts_service.dart';
-import 'package:pecs_app/models/draggable_pic_model.dart';
+import 'package:PecsSpeak/widgets/custom_app_bar.dart';
+import 'package:PecsSpeak/widgets/draggable_pic.dart';
+import 'package:PecsSpeak/data/higiene/higiene_draggable_pics_data.dart';
+import 'package:PecsSpeak/data/corpo/corpo_draggable_pics_data.dart';
+import 'package:PecsSpeak/data/comunicacao/comunicacao_draggable_pics_data.dart';
+import 'package:PecsSpeak/services/tts_service.dart';
+import 'package:PecsSpeak/models/draggable_pic_model.dart';
 
 import '../../data/atividades/atividades_draggable_pics_data.dart';
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pecs_app/models/draggable_pic_model.dart';
-import 'package:pecs_app/models/schedule_model.dart';
-import 'package:pecs_app/services/notifications_services.dart';
-import 'package:pecs_app/services/schedule_list_provider.dart';
-import 'package:pecs_app/widgets/custom_app_bar.dart';
+import 'package:PecsSpeak/models/draggable_pic_model.dart';
+import 'package:PecsSpeak/models/schedule_model.dart';
+import 'package:PecsSpeak/services/notifications_services.dart';
+import 'package:PecsSpeak/services/schedule_list_provider.dart';
+import 'package:PecsSpeak/widgets/custom_app_bar.dart';
 import 'package:provider/provider.dart';
 import 'choose_scheduled_activity.dart';
 import 'choose_scheduled_time.dart';

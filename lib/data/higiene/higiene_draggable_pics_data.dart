@@ -1,4 +1,4 @@
-import 'package:pecs_app/models/draggable_pic_model.dart';
+import 'package:PecsSpeak/models/draggable_pic_model.dart';
 
 const higieneDraggable = const [
   DraggablePicModel(

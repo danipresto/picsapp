@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pecs_app/services/admin_mode_provider.dart'; // Atualize com o caminho correto
+import 'package:PecsSpeak/services/admin_mode_provider.dart'; // Atualize com o caminho correto
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;

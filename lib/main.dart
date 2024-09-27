@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pecs_app/services/admin_mode_provider.dart'; // Import the AdminModeProvider
-import 'package:pecs_app/services/notifications_services.dart';
-import 'package:pecs_app/services/schedule_list_provider.dart';
-import 'package:pecs_app/myapp.dart';
+import 'package:PecsSpeak/services/admin_mode_provider.dart'; // Import the AdminModeProvider
+import 'package:PecsSpeak/services/notifications_services.dart';
+import 'package:PecsSpeak/services/schedule_list_provider.dart';
+import 'package:PecsSpeak/myapp.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Color(0xFFE0F2F1), // Cor verde suave
         fontFamily: 'Lexend',
       ),
+      debugShowCheckedModeBanner: false,
       home: const HomePage(),
     );
   }

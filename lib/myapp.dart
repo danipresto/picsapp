@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pecs_app/pages/pecs/pics_screen.dart';
-import 'package:pecs_app/pages/schedule/schedule_screen.dart';
-import 'package:pecs_app/pages/settings.dart';
-import 'package:pecs_app/widgets/custom_app_bar.dart'; // Import the settings page
+import 'package:PecsSpeak/pages/pecs/pics_screen.dart';
+import 'package:PecsSpeak/pages/schedule/schedule_screen.dart';
+import 'package:PecsSpeak/pages/settings.dart';
+import 'package:PecsSpeak/widgets/custom_app_bar.dart'; // Import the settings page
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -41,8 +41,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'PECS Speak',
-      ),
-      backgroundColor: const Color(0xFFFFF9C4), // Amarelo pastel brilhante
+      ), // Amarelo pastel brilhante
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,

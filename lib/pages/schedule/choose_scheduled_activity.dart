@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pecs_app/data/higiene/higiene_draggable_pics_data.dart';
-import 'package:pecs_app/data/atividades/atividades_draggable_pics_data.dart'; // Import atividades data
-import 'package:pecs_app/models/draggable_pic_model.dart';
-import 'package:pecs_app/widgets/custom_app_bar.dart';
+import 'package:PecsSpeak/data/higiene/higiene_draggable_pics_data.dart';
+import 'package:PecsSpeak/data/atividades/atividades_draggable_pics_data.dart'; // Import atividades data
+import 'package:PecsSpeak/models/draggable_pic_model.dart';
+import 'package:PecsSpeak/widgets/custom_app_bar.dart';
 
 
 class ChooseScheduleActivityScreen extends StatefulWidget {

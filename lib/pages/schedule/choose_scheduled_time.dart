@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pecs_app/widgets/custom_app_bar.dart';
+import 'package:PecsSpeak/widgets/custom_app_bar.dart';
 
 class ChooseScheduledTimeScreen extends StatefulWidget {
   @override
@@ -13,6 +13,12 @@ class _ChooseScheduledTimeScreenState extends State<ChooseScheduledTimeScreen> {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: selectedTime,
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: child!,
+        );
+      },
     );
     if (picked != null && picked != selectedTime) {
       setState(() {

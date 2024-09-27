@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:pecs_app/myapp.dart';
-import 'package:pecs_app/pages/schedule/schedule_screen.dart';
+import 'package:PecsSpeak/myapp.dart';
+import 'package:PecsSpeak/pages/schedule/schedule_screen.dart';
 
 class Routes {
   static Map<String, Widget Function(BuildContext)> list = <String, WidgetBuilder>{

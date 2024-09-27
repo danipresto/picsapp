@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pecs_app/models/schedule_model.dart';
-import 'package:pecs_app/services/schedule_list_provider.dart';
-import 'package:pecs_app/widgets/custom_app_bar.dart';
+import 'package:PecsSpeak/models/schedule_model.dart';
+import 'package:PecsSpeak/services/schedule_list_provider.dart';
+import 'package:PecsSpeak/widgets/custom_app_bar.dart';
 import 'package:provider/provider.dart';
-import 'package:pecs_app/services/admin_mode_provider.dart';
+import 'package:PecsSpeak/services/admin_mode_provider.dart';
 import 'schedule_activity_screen.dart';
-import 'package:pecs_app/pages/schedule/schedule_item.dart';
+import 'package:PecsSpeak/pages/schedule/schedule_item.dart';
 
 class ScheduleScreen extends StatelessWidget {
   void scheduledActivityPage(BuildContext ctx) {
@@ -29,13 +29,12 @@ class ScheduleScreen extends StatelessWidget {
       body: Consumer<ScheduleListProvider>(
         builder: (context, scheduleListProvider, child) {
           // Sort the scheduleList by selectedTime
-          List<ScheduleModel> sortedList = List.from(scheduleListProvider.scheduleList);
+          List<ScheduleModel> sortedList =
+          List.from(scheduleListProvider.scheduleList);
           sortedList.sort((a, b) {
-            final aTime = TimeOfDay(hour: a.selectedTime.hour, minute: a.selectedTime.minute);
-            final bTime = TimeOfDay(hour: b.selectedTime.hour, minute: b.selectedTime.minute);
-            return aTime.hour.compareTo(bTime.hour) != 0
-                ? aTime.hour.compareTo(bTime.hour)
-                : aTime.minute.compareTo(bTime.minute);
+            int aMinutes = a.selectedTime.hour * 60 + a.selectedTime.minute;
+            int bMinutes = b.selectedTime.hour * 60 + b.selectedTime.minute;
+            return aMinutes.compareTo(bMinutes);
           });
 
           return ListView.builder(
@@ -56,7 +55,7 @@ class ScheduleScreen extends StatelessWidget {
           : null,
     );
   }
-
 }
+
 
 

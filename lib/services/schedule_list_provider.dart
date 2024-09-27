@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:pecs_app/models/schedule_model.dart';
+import 'package:PecsSpeak/models/schedule_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ScheduleListProvider with ChangeNotifier {
